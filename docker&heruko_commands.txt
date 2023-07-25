@@ -1,0 +1,45 @@
+docker
+docker ps #to see all of your running containers
+
+docker buildx build --platform linux/amd64 -t language_translate-detect_fastapi-docker .   
+
+in dockerfile already in requirements.txt pip install --no-cache-dir --upgrade -r /app/requirements.txt command already is being build -r for read
+pip install -r requirements.txt
+
+# -t is a tag for the image we are building and refer it later if we want to create a container with our image
+# . means look in the current directory for a docker file & use that docker file to build the image
+# reason is running on mac/win azure actually needs your container to be build using linux
+# mainly buildx will emulate a linux environment when it builds your container
+
+docker run -d --name language_translate-detect_fastapi-docker -p 80:80 language-translate-app
+
+# run the container locally this is just for test eventual goal is to run the container in the cloud 
+# using docker run to run the container -d means run it in daemon mode hence keep the container running in the background even if the terminal is closed
+# --name is the name of the running container dlapi
+# -p tells us to bind a port on our computer to a port in the docker container from the dockerfile -> CMD [ "uvicorn" , "main:app" , "--host", "0.0.0.0", "--port", "80"]
+# port 80 inside our docker conatiner from the dockerfile -p flag is connecting port 80 inside the container to port 80 on our computer
+# hence we can actually access the web server from our browser
+
+docker stop language_translate-detect_fastapi-docker
+#stop the container
+
+docker rm language_translate-detect_fastapi-docker
+#remove the container
+
+						<<<Heroku>>>
+docker ps
+docker buildx build --platform linux/amd64 -t language_translate-detect_fastapi-docker .  
+docker run -d --name language_translate-detect_fastapi-docker -p 80:80 language_translate&detect_fastapi-docker
+heroku update
+heroku login
+heroku yml file add commands for deploying with docker https://devcenter.heroku.com/articles/build-docker-images-heroku-yml
+heroku create language_translate-detect_fastapi-docker-079 			#unique
+https://language_translate-detect_fastapi-docker-079-27bffe2479d4.herokuapp.com/	#remote project
+heroku git:remote language_translate-detect_fastapi-docker
+heroku stack:set container
+git branch -M main
+git push heroku main
+
+Hallo! Wie geht es dir
+
+Ciao, come stai?

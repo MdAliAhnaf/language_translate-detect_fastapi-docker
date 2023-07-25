@@ -1,0 +1,23 @@
+Requirements
+pip install fastapi
+pip install uvicorn
+fastapi	#build api
+uvicorn	#run api
+pydantic #data validation to get valid data from client
+peewee #interact with db
+transformers #run translation
+sentencepiece #transformers to tokenize our input
+torch #transformers to run our underlying DL model via pytorch
+
+Basic get - api in main.py:
+from fastapi import FastAPI
+app = FastAPI() #creating an instance FastAPI class 
+
+@app.get("/detect") #first endpoint 
+async def detect():
+    return "welcome"
+
+uvicorn main:app --reload
+http://127.0.0.1:8000
+http://127.0.0.1:8000/docs
+http://127.0.0.1:8000/redoc
